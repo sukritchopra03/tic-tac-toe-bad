@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let iteration = 1;
     let gameOver = true; // Set gameOver to true initially
-resetButton.style.display = "none"; // Hide reset button initially
+    resetButton.style.display = "none"; // Hide reset button initially
+
     // Event listener for start button
     startButton.addEventListener("click", function() {
         welcomeScreen.style.display = "none"; // Hide welcome screen
@@ -48,6 +49,25 @@ resetButton.style.display = "none"; // Hide reset button initially
         });
     });
 
+    // Function to check for draw condition
+    function checkDraw() {
+        let allFilled = true;
+        squares.forEach(function(square) {
+            if (!square.querySelector(".icon") && !square.querySelector(".icon1")) {
+                allFilled = false;
+            }
+        });
+        if (allFilled) {
+            setTimeout(function() {
+                alert("It's a draw!");
+            }, 500);
+            setTimeout(function() {
+                window.location.reload();
+            }, 1000);
+            gameOver = true;
+        }
+    }
+
     // Function to check for win condition
     function checkWin() {
         const positions = [
@@ -71,7 +91,7 @@ resetButton.style.display = "none"; // Hide reset button initially
                     window.location.reload();
                 }, 1000);
                 gameOver = true;
-                break;
+                return;
             } else if (a.style.backgroundColor === "rgba(0, 0, 255, 0.8)" && b.style.backgroundColor === "rgba(0, 0, 255, 0.8)" && c.style.backgroundColor === "rgba(0, 0, 255, 0.8)") {
                 setTimeout(function() {
                     alert("Player 2 wins!");
@@ -80,9 +100,12 @@ resetButton.style.display = "none"; // Hide reset button initially
                     window.location.reload();
                 }, 1000);
                 gameOver = true;
-                break;
+                return;
             }
         }
+
+        // Check for draw if no winner is found
+        checkDraw();
     }
 
     // Event listener for reset button
