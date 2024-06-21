@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function() {
             let [a, b, c] = pos.map(selector => document.querySelector(selector));
             if (a.style.backgroundColor === "green" && b.style.backgroundColor === "green" && c.style.backgroundColor === "green") {
                 setTimeout(function() {
-                    alert("Player 1 wins!");
+                    alert("Green wins!");
                 }, 500);
                 setTimeout(function() {
                     window.location.reload();
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             } else if (a.style.backgroundColor === "rgba(0, 0, 255, 0.8)" && b.style.backgroundColor === "rgba(0, 0, 255, 0.8)" && c.style.backgroundColor === "rgba(0, 0, 255, 0.8)") {
                 setTimeout(function() {
-                    alert("Player 2 wins!");
+                    alert("Blue wins!");
                 }, 500);
                 setTimeout(function() {
                     window.location.reload();
