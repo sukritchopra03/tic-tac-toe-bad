@@ -45,7 +45,7 @@ body {
   cursor: pointer;
   border-radius: 5px;
   position: relative;
-  top: 60px;
+  top: 20px;
 }
 
 .start-button:hover {
