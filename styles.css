@@ -1,0 +1,307 @@
+/* Global styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  
+  background-image: linear-gradient(to bottom right, skyblue, white);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 170vh;
+  flex-direction: column;
+  margin: 0;
+}
+
+/* Welcome screen */
+.welcome-screen {
+  position: relative;
+  top: 30px;
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+h1{
+  position: relative;
+  top:28px;
+}
+.welcome-screen h1 {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.welcome-screen img {
+  width: 100px;
+  height: auto;
+ position: relative;
+ top:28px;
+}
+
+
+
+.start-button {
+  padding: 10px 20px;
+  font-size: 1.2em;
+  margin-top: 20px;
+
+  background-color: #4CAF50;
+  color: white;
+  border: 2px solid black;
+  cursor: pointer;
+  border-radius: 5px;
+  position: relative;
+  top: 20px;
+}
+
+.start-button:hover {
+  background-color: #45a049;
+}
+
+.start-button:active {
+  background-color: #3e8e41;
+}
+
+/* Game board */
+.grandfather-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40vh;
+/*  margin-top: 50px; /* Adjust to provide space for welcome screen */*/
+
+}
+
+.parent-box {
+  height: 300px;
+  width: 300px;
+  border: 2px solid black;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 10px;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  position:relative;
+  top:100px;
+}
+
+.square {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.square:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.square:active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.icon, .icon1 {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.circle {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 255, 0.8);
+}
+
+.cross1, .cross2 {
+  height: 50px;
+  width: 5px;
+  background-color: green;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.cross2 {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Reset button */
+.button-father {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+bottom: 10px;
+position: relative;
+}
+
+.button {
+ padding: 10px 20px;
+  height: 40px;
+  font-size: 1em;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: 1px solid black;
+  cursor: pointer;
+  border-radius: 5px;
+ display: none;
+}
+
+.button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.button:active {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+
+
+.color-choose{
+  margin-top:150px;
+}
+
+.boxyy{
+  margin-bottom: 20px;
+ position: relative;
+ left:30px;
+  justify-content: center;
+  display: flex;
+  height:60px;
+  width: 250px;
+  border: 1px solid black;
+    display: flex;
+  align-items: center;
+
+}
+
+
+.color-choose-head{
+  color:rgba(0,0,0,0.7);
+/*  margin-top: 100px;*/
+
+}
+
+
+.colorselect11{
+
+  height: 40px;
+  width: 40px;
+  background-color: red;
+margin: 0 10px;
+}
+
+.colorselect11:active{
+  background-color: rgba(255,0,0,0.5);
+}
+
+
+
+.colorselect12{
+
+  height: 40px;
+  width: 40px;
+  background-color: blue;
+margin: 0 10px;
+}
+.colorselect12:active{
+  background-color: rgba(0,0,255,0.5);
+}
+.colorselect13{
+
+  height: 40px;
+  width: 40px;
+  background-color: green;
+margin: 0 10px;
+}
+.colorselect13:active{
+  background-color: rgba(0,255,0,0.5);
+}
+.colorselect21{
+margin: 0 10px;
+  height: 40px;
+  width: 40px;
+  background-color: yellow;
+}
+.colorselect21:active{
+  background-color: rgba(255,255,0,0.5);
+}
+.colorselect22{
+margin: 0 10px;
+  height: 40px;
+  width: 40px;
+  background-color: orange;
+}
+.colorselect22:active{
+  background-color: rgba(255,165,0,0.5);
+}
+
+.colorselect23{
+margin: 0 10px;
+  height: 40px;
+  width: 40px;
+
+  background-color: violet;
+}
+.colorselect23:active{
+  background-color: rgba(127,0,255,0.5);
+}
+
+
+
+@media(max-width: 768px) {
+  .parent-box {
+    height: 200px;
+    width: 200px;
+    margin-bottom: 200px;
+position: relative;
+/*  right: 20px;*/
+  }
+
+.color-choose{
+  margin-top: 50px;
+}
+
+.h-one,.h-two,img{ 
+
+margin-top: 55px;
+
+}
+
+  .square {
+    height: 50px;
+    width: 50px;
+  }
+
+  .circle {
+    height: 30px;
+    width: 30px;
+  }
+
+  .cross1, .cross2 {
+    height: 30px;
+    width: 3px;
+  }
+
+}
+
+
+
+
+
