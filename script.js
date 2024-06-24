@@ -19,8 +19,7 @@ color1.addEventListener("click", function() {
     color3.style.border = "";
 
     col1 = window.getComputedStyle(color1).backgroundColor;
-    // console.log(col1);
-   colorname="Red";
+    colorname = "Red";
 });
 
 color2.addEventListener("click", function() {
@@ -28,121 +27,202 @@ color2.addEventListener("click", function() {
     color2.style.border = "3px solid black";
     color3.style.border = "";
     col1 = window.getComputedStyle(color2).backgroundColor;
-// console.log(col1);
-   colorname="Blue";
+    colorname = "Blue";
 });
 
 color3.addEventListener("click", function() {
     color1.style.border = "";
     color2.style.border = "";
     color3.style.border = "3px solid black";
-
     col1 = window.getComputedStyle(color3).backgroundColor;
-    // console.log(col1);
-colorname="Green";  
+    colorname = "Green";
 });
 
 color4.addEventListener("click", function() {
     color4.style.border = "3px solid black";
     color5.style.border = "";
     color6.style.border = "";
-col2 = window.getComputedStyle(color4).backgroundColor;
-// console.log(col2);
- colorname2="Yellow";
+    col2 = window.getComputedStyle(color4).backgroundColor;
+    colorname2 = "Yellow";
 });
 
 color5.addEventListener("click", function() {
     color4.style.border = "";
     color5.style.border = "3px solid black";
     color6.style.border = "";
-   col2 = window.getComputedStyle(color5).backgroundColor;
-// console.log(col2);
-   colorname2="Orange";
- 
+    col2 = window.getComputedStyle(color5).backgroundColor;
+    colorname2 = "Orange";
 });
 
 color6.addEventListener("click", function() {
     color4.style.border = "";
     color5.style.border = "";
     color6.style.border = "3px solid black";
-col2 = window.getComputedStyle(color6).backgroundColor;
-// console.log(col2);
-  colorname2="Pink";
+    col2 = window.getComputedStyle(color6).backgroundColor;
+    colorname2 = "Pink";
 });
 
-
 document.addEventListener("DOMContentLoaded", function() {
-    // Select elements
-    const bodie=document.getElementsByTagName("body");
     const squares = document.querySelectorAll(".square");
     let startButtonOne = document.getElementById("start-button-one");
+    let startButtonComputer = document.getElementById("start-button-computer");
     const resetButton = document.querySelector(".button");
     const welcomeScreen = document.querySelector(".welcome-screen");
     const gameContainer = document.querySelector(".grandfather-box");
-const ColorSelect=document.querySelector(".color-choose");
+    const ColorSelect = document.querySelector(".color-choose");
+    let againstComputer = false;
     let iteration = 1;
-    let gameOver = true; // Set gameOver to true initially
-    resetButton.style.display = "none"; // Hide reset button initially
+    let gameOver = true;
+    resetButton.style.display = "none";
 
-
-
-    // Event listener for start button
     startButtonOne.addEventListener("click", function() {
-        if(col1===null || col2===null){
+        startGame();
+    });
+
+    startButtonComputer.addEventListener("click", function() {
+        againstComputer = true;
+        startGame();
+    });
+
+    function startGame() {
+        if (col1 === null || col2 === null) {
             alert("Please select colors for both players");
             return;
         }
-        console.log("yo go away");
-        welcomeScreen.style.display = "none"; // Hide welcome screen
-        gameContainer.style.display = "block"; // Show game board
-        resetButton.style.display = "block"; // Show reset button
-        ColorSelect.style.display="none";
-        // bodie.style.height="120vh";
-       const para = document.createElement("p");
-const node = document.createTextNode("Don't Come Here. Play the game bozo!.");
-para.appendChild(node);
-
-// Append the paragraph to the body of the document
-document.body.appendChild(para);
-
+        welcomeScreen.style.display = "none";
+        gameContainer.style.display = "block";
+        resetButton.style.display = "block";
+        ColorSelect.style.display = "none";
+        const para = document.createElement("p");
+        const node = document.createTextNode("Don't Come Here. Play the game bozo!.");
+        para.appendChild(node);
+        document.body.appendChild(para);
         resetButton.style.backgroundColor = "red";
-        resetButton.style.marginBottom  = "-100px";
-        gameContainer.style.marginBottom  = "640px";
-        gameOver = false; // Set gameOver to false to allow gameplay
-    });
+        resetButton.style.marginBottom = "-100px";
+        gameContainer.style.marginBottom = "640px";
+        gameOver = false;
+    }
 
-    // Event listener for squares
     squares.forEach(function(square) {
         square.addEventListener("click", function() {
             if (gameOver || square.querySelector(".icon") || square.querySelector(".icon1")) {
                 return;
             }
 
-            // Create and append icons
-            if (iteration % 2 !== 0) {
-                let cross = document.createElement("div");
-                cross.classList.add("icon1");
-                cross.innerHTML = `
-                    <div class="cross1"></div>
-                    <div class="cross2"></div>
-                `;
-                square.appendChild(cross);
-                square.style.backgroundColor = col1;
-            } else {
+            playerMove(square);
+
+            if (againstComputer && !gameOver) {
+                computerMove();
+            }
+        });
+    });
+
+    function playerMove(square) {
+        if (iteration % 2 !== 0) {
+            let cross = document.createElement("div");
+            cross.classList.add("icon1");
+            cross.innerHTML = `
+                <div class="cross1"></div>
+                <div class="cross2"></div>
+            `;
+            square.appendChild(cross);
+            square.style.backgroundColor = col1;
+        } else {
+            let icon = document.createElement("div");
+            icon.classList.add("icon");
+            icon.classList.add("circle");
+            square.appendChild(icon);
+            square.style.backgroundColor = col2;
+        }
+        iteration++;
+        checkWin();
+    }
+
+    function computerMove() {
+        let emptySquares = [];
+        squares.forEach(function(square) {
+            if (!square.querySelector(".icon") && !square.querySelector(".icon1")) {
+                emptySquares.push(square);
+            }
+        });
+
+        if (emptySquares.length === 0) return;
+
+        // Check if the computer can win in the next move
+        for (let i = 0; i < emptySquares.length; i++) {
+            let square = emptySquares[i];
+            square.style.backgroundColor = col2;
+            let win = checkWinForColor(col2);
+            square.style.backgroundColor = '';
+
+            if (win) {
                 let icon = document.createElement("div");
                 icon.classList.add("icon");
                 icon.classList.add("circle");
                 square.appendChild(icon);
                 square.style.backgroundColor = col2;
+
+                iteration++;
+                checkWin();
+                return;
             }
-            iteration++;
+        }
 
-            // Check for win condition
-            checkWin();
-        });
-    });
+        // Check if the player is about to win and block them
+        for (let i = 0; i < emptySquares.length; i++) {
+            let square = emptySquares[i];
+            square.style.backgroundColor = col1;
+            let win = checkWinForColor(col1);
+            square.style.backgroundColor = '';
 
-    // Function to check for draw condition
+            if (win) {
+                let icon = document.createElement("div");
+                icon.classList.add("icon");
+                icon.classList.add("circle");
+                square.appendChild(icon);
+                square.style.backgroundColor = col2;
+
+                iteration++;
+                checkWin();
+                return;
+            }
+        }
+
+        // If no immediate threat or win, choose a random square
+        let randomIndex = Math.floor(Math.random() * emptySquares.length);
+        let square = emptySquares[randomIndex];
+
+        let icon = document.createElement("div");
+        icon.classList.add("icon");
+        icon.classList.add("circle");
+        square.appendChild(icon);
+        square.style.backgroundColor = col2;
+
+        iteration++;
+        checkWin();
+    }
+
+    function checkWinForColor(color) {
+        const positions = [
+            [".one", ".two", ".three"],
+            [".four", ".five", ".six"],
+            [".seven", ".eight", ".nine"],
+            [".one", ".four", ".seven"],
+            [".two", ".five", ".eight"],
+            [".three", ".six", ".nine"],
+            [".one", ".five", ".nine"],
+            [".three", ".five", ".seven"]
+        ];
+
+        for (let pos of positions) {
+            let [a, b, c] = pos.map(selector => document.querySelector(selector));
+            if (a.style.backgroundColor === color && b.style.backgroundColor === color && c.style.backgroundColor === color) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     function checkDraw() {
         let allFilled = true;
         squares.forEach(function(square) {
@@ -161,7 +241,6 @@ document.body.appendChild(para);
         }
     }
 
-    // Function to check for win condition
     function checkWin() {
         const positions = [
             [".one", ".two", ".three"],
@@ -197,11 +276,9 @@ document.body.appendChild(para);
             }
         }
 
-        // Check for draw if no winner is found
         checkDraw();
     }
 
-    // Event listener for reset button
     resetButton.addEventListener("click", function() {
         window.location.reload();
     });
